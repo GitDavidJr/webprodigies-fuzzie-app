@@ -128,3 +128,13 @@
     transform: translate(calc(-50% - 0.5rem));
   }
 }
+
+/* Esconde a barra de rolagem no Chrome, Safari e Edge */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Esconde a barra de rolagem no Firefox */
+.scrollbar-hide {
+  scrollbar-width: none;
+}
