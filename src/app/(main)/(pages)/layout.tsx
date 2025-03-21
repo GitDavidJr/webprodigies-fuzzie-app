@@ -1,3 +1,4 @@
+import InfoBar from "@/src/components/infobar";
 import Sidebar from "@/src/components/sidebar";
 import { div } from "framer-motion/client";
 
@@ -9,7 +10,10 @@ const Layout = ({ children }: Props) => {
   return (
     <div className="flex overflow-hidden h-screen">
       <Sidebar/>  
-      <div className="w-full">{children}</div>
+      <div className="w-full">
+        <InfoBar />
+        {children}
+      </div>
     </div>
   );
 };
