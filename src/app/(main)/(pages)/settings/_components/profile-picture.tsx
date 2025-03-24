@@ -28,7 +28,7 @@ const ProfilePicture = ({ onDelete, onUpload, userImage }: Props) => {
       <div className="flex h-[30vh] flex-col items-center justify-center">
         {userImage ? (
           <>
-            <div className="relative w-1/4 h-auto">
+            <div>
               <Image
                 src={userImage} 
                 alt="User_Image" 
