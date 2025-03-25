@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Navbar from "@/src/components/global/navbar";
+import Navbar from "@/src/components/navBar";
 import { ContainerScroll } from "../components/ui/container-scroll-animation";
 import { Button } from "../components/ui/button";
 import { InfiniteMovingCards } from "../components/ui/infinite-moving-cards";

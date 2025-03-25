@@ -8,7 +8,7 @@ type Props = { children: React.ReactNode };
 
 const Layout = ({ children }: Props) => {
   return (
-    <div className="flex overflow-hidden h-screen bg-dark">
+    <div className="flex overflow-hidden h-screen bg-dark" >
       <Sidebar/>  
       <div className="w-full">
         <InfoBar />
