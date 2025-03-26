@@ -5,7 +5,7 @@ import "@uploadcare/react-uploader/core.css";
 import { useRouter } from "next/navigation";
 
 type Props = {
-  onUpload?: any;
+  onUpload: any;
 };
 
 const UploadCareButton = ({ onUpload }: Props) => {
@@ -13,6 +13,7 @@ const UploadCareButton = ({ onUpload }: Props) => {
   const router = useRouter()
 
   const handleUpload = async (e: any) => {
+     
     if (await onUpload(`https://ucarecdn.com/${e.successEntries[0].uuid}/`)) {
       router.refresh()
     }

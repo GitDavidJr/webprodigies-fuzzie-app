@@ -1,5 +1,4 @@
 "use client";
-
 import React from "react";
 import UploadCareButton from "./uploadcare-button";
 import { useRouter } from "next/navigation";
@@ -17,6 +16,7 @@ const ProfilePicture = ({ onDelete, onUpload, userImage }: Props) => {
   const router = useRouter();
 
   const onRemoveProfileImage = async () => {
+    
     if (await onDelete()) {
       router.refresh();
     }

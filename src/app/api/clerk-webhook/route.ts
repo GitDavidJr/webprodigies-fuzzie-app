@@ -3,13 +3,14 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
+    console.log("✅✅✅✅✅✅✅✅✅✅✅✅" );
     const body = await req.json();
     const { id, email_addresses, first_name, image_url } = body?.data;
 
     const email = email_addresses[0]?.email_address;
-    console.log('✅', body);
+    
 
-    await db.user.upsert({
+    const response = await db.user.upsert({
       where: {
         clerkId: id,
       },
@@ -25,6 +26,8 @@ export async function POST(req: Request) {
         profileImage: image_url || "",
       },
     });
+
+    console.log('✅', response);
 
     return NextResponse.json(
       { message: "User updated in database successfully" },
