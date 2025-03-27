@@ -1,11 +1,16 @@
 import { z } from "zod";
 import { ConnectionProviderProps } from "../providers/connections-provider";
+import { desc } from "framer-motion/client";
 
 export const EditUserProfileSchema = z.object({
   name: z.string().min(1, "Required"),
   email: z.string().email("Required"),
 });
 
+export const WorkflowFormSchema = z.object({
+  name: z.string().min(1, "Required"),
+  description: z.string().min(1, "Required"),
+})
 
 export type ConnectionTypes = 'Google Drive' | 'Notion' | 'Slack' | 'Discord'
 

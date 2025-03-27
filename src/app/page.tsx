@@ -8,9 +8,13 @@ import { HeroParallax } from "../components/ui/hero-parallax";
 import { LampComponent } from "../components/ui/lamp";
 import { CardBody, CardContainer, CardItem } from "../components/ui/3d-card";
 import { CheckIcon } from "lucide-react";
+import { currentUser } from "@clerk/nextjs/server";
 
 export default function Home() {
   //WIP: remove fault IMAge for home page
+
+  
+
   return (
     <main className="flex items-center justify-center flex-col w-screen overflow-x-hidden">
       <Navbar />
