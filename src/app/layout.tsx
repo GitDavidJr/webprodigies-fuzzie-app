@@ -2,17 +2,11 @@ import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/src/providers/theme-provider";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ModalProvider from "../providers/modal-provider";
+import { Toaster } from "../components/ui/sonner";
 
 const font = DM_Sans({
   subsets: ["latin"],
@@ -30,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en" suppressHydrationWarning >
+      <html lang="en" suppressHydrationWarning>
         <body className={font.className}>
           <ThemeProvider
             attribute="class"
@@ -40,6 +34,7 @@ export default function RootLayout({
           >
             <ModalProvider>
               {children}
+              <Toaster />
             </ModalProvider>
           </ThemeProvider>
         </body>

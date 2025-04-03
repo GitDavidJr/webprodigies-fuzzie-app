@@ -1,12 +1,15 @@
 'use client'
 
-import React, { useMemo } from 'react'
-import { ReactFlow } from '@xyflow/react';
+import React, { useCallback, useMemo, useState } from 'react'
+import { ReactFlow, ReactFlowInstance } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import { EditorNodeType } from '@/src/lib/types';
+import { EditorCanvasCardType, EditorNodeType } from '@/src/lib/types';
 import { useEditor } from '@/src/providers/editor-provider';
 import EditorCanvasCardSingle from './editor-canvas-card-single';
 import { ResizablePanel, ResizablePanelGroup } from '@/src/components/ui/resizable';
+import { toast } from 'sonner';
+import { v4 } from 'uuid';
+import { EditorCanvasDefaultCardTypes } from '@/src/lib/constant';
 
 type Props = {}
 
@@ -14,9 +17,61 @@ const initialNodes: EditorNodeType[] = []
 
 const initialEdges: { id: string; source: string; target: string }[] = []
 
+
 const EditorCanvas = (props: Props) => {
 
     const {dispatch, state} = useEditor()
+
+    const[reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance>()
+
+    const onDrop = useCallback(
+        (event: any) => {
+            event.preventDefault()
+
+            const type: EditorCanvasCardType['type'] = event.dataTransfer.getData(
+                'application/reactflow'
+            )
+
+            // check if the droped element is valid
+            if (typeof type === 'undefined' || type){
+                return
+            }
+
+            const triggerAlreadyExists = state.editor.elements.find(
+                (node) => node.type === 'Trigger'
+            )
+
+            if (type === 'Trigger' && triggerAlreadyExists) {
+                toast('Only one trigger can be added to automations at the moment')
+            }
+
+            if (!reactFlowInstance) return
+
+            const position = reactFlowInstance.screenToFlowPosition({
+                x: event.clientX,
+                y: event.clientY,
+            })
+
+            const newNode = {
+                id: v4(),
+                type,
+                position,
+                data: {
+                    title: type,
+                    description: EditorCanvasDefaultCardTypes[type].description,
+                    completed: false,
+                    current: false,
+                    metadata: {},
+                    type: type,
+                },
+            }
+
+
+            //@ts-ignore
+            setNodes((nds) => nds.concat(newNode))
+        },
+        [reactFlowInstance, state]
+    )
 
     const nodeTypes = useMemo(() => ({
          Action: EditorCanvasCardSingle,
