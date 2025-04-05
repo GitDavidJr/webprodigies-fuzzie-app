@@ -4,6 +4,7 @@ import { useNodeConnections } from "@/src/providers/connections-provider";
 import { usePathname } from "next/navigation";
 import React, { useCallback, useState } from "react";
 import { toast } from "sonner";
+import { onCreateNodesEdges, onflowPublish } from "../_actions/workflow-connections";
 
 type Props = {
   children: React.ReactNode;
@@ -24,8 +25,13 @@ const FlowInstance = ({ children, edges, nodes }: Props) => {
       JSON.stringify(isFlow)
     );
 
-    if (flow) toast.message(flow.message);
+    if (flow) toast.message(flow.menssage);
   }, [nodeConnection]);
+
+  const onPublishWorkFlow = useCallback(async () => {
+    const response = onflowPublish(pathname.split("/").pop()!, true)
+    if (response) toast.message(response)
+  }, [])
 
   return (
     <div className="flex flex-col gap-2">
@@ -33,7 +39,11 @@ const FlowInstance = ({ children, edges, nodes }: Props) => {
         <Button onClick={onFlowAutomation} disabled={isFlow.length < 1}>
           Save
         </Button>
+        <Button onClick={onPublishWorkFlow} disabled={isFlow.length < 1}>
+          Publish
+        </Button>
       </div>
+      {children}
     </div>
   );
 };

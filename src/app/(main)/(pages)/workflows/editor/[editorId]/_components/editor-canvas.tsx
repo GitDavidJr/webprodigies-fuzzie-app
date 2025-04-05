@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   addEdge,
   applyNodeChanges,
@@ -26,6 +26,8 @@ import { toast } from "sonner";
 import { v4 } from "uuid";
 import { EditorCanvasDefaultCardTypes } from "@/src/lib/constant";
 import { setMaxIdleHTTPParsers } from "http";
+import FlowInstance from "./flow-instance";
+import EditorCanvasSidebar from "./editor-canvas-sidebar";
 
 type Props = {};
 
@@ -158,6 +160,11 @@ const EditorCanvas = (props: Props) => {
     }),
     []
   )
+
+  useEffect(() => {
+    console.log(state.editor.elements)
+  }, [state.editor.elements])
+  
 
   //WIP: isWorkflowLoading fix it!
 
