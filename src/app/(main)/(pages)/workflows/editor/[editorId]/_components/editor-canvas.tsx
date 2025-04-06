@@ -13,6 +13,8 @@ import {
   NodeChange,
   ReactFlow,
   ReactFlowInstance,
+  applyEdgeChanges,
+  
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { EditorCanvasCardType, EditorNodeType } from "@/src/lib/types";
@@ -28,6 +30,7 @@ import { EditorCanvasDefaultCardTypes } from "@/src/lib/constant";
 import { setMaxIdleHTTPParsers } from "http";
 import FlowInstance from "./flow-instance";
 import EditorCanvasSidebar from "./editor-canvas-sidebar";
+import { div } from "framer-motion/client";
 
 type Props = {};
 
@@ -143,6 +146,10 @@ const EditorCanvas = (props: Props) => {
     })
   }
 
+  useEffect(() => {
+    dispatch({type: 'LOAD_DATA', payload: {edges, elements: nodes}})
+  }, [nodes, edges])
+
   const nodeTypes = useMemo(
     () => ({
       Action: EditorCanvasCardSingle,
@@ -236,12 +243,15 @@ const EditorCanvas = (props: Props) => {
             </svg>
           </div>
         ) : (
-          <FlowInstance
-            edges={edges}
-            nodes={nodes}
-          >
-            <EditorCanvasSidebar nodes={nodes} />
-          </FlowInstance>
+          <div className="border-l-[2px]">
+              <FlowInstance
+              edges={edges}
+              nodes={nodes}
+            >
+              <EditorCanvasSidebar nodes={nodes} />
+            </FlowInstance>
+          </div>
+          
         )}
       </ResizablePanel>
     </ResizablePanelGroup>

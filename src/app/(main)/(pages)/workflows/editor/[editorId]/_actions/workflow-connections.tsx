@@ -29,7 +29,7 @@ export const onflowPublish = async (workflowId: string, state: boolean) => {
             id: workflowId,
         },
         data: {
-            published: state,
+            publish: state,
         },
     })
 
